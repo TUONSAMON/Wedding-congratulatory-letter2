@@ -21,6 +21,10 @@
                  0 0 0 2px #fff9fb inset,
                  0 0 0 4px rgba(255,220,240,.6);
       padding:2rem 2rem 2.5rem;
+
+      /* keep card above flowers */
+      position: relative;
+      z-index: 2;
     }
     .image-section{text-align:center;margin-bottom:1.2rem;}
     .wedding-img{
@@ -92,6 +96,7 @@
     .style-btn:active{transform:translateY(5px);box-shadow:0 2px 0 #b26b82;}
     .khmer-font-fix{font-family:"Leelawadee UI","Khmer OS","MoolBoran","Segoe UI",sans-serif;}
     footer{text-align:center;margin-top:2rem;color:#ad6d82;font-weight:400;font-size:1rem;opacity:.85;}
+
     @media (max-width:480px){
       .wedding-card{padding:1.2rem 1rem;}
       h1{font-size:2rem;}
@@ -101,46 +106,33 @@
     }
 
     /* 🌸 Floating Flowers */
-.flowers {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
-.flower {
-  position: absolute;
-  bottom: -60px;
-  font-size: 22px;
-  opacity: 0.85;
-  animation: floatUp linear forwards;
-  filter: drop-shadow(0 8px 10px rgba(160, 80, 100, 0.25));
-  will-change: transform;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translate3d(var(--x, 0px), 0, 0) rotate(0deg);
-    opacity: 0;
-  }
-  10% { opacity: .9; }
-  100% {
-    transform: translate3d(var(--x, 0px), -120vh, 0) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* keep your card above flowers */
-.wedding-card {
-  position: relative;
-  z-index: 2;
-}
+    .flowers{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1; /* behind card (card is 2) */
+    }
+    .flower{
+      position:absolute;
+      bottom:-60px;
+      font-size:22px;
+      opacity:.85;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 8px 10px rgba(160,80,100,.25));
+      will-change: transform;
+    }
+    @keyframes floatUp{
+      0%{transform: translate3d(var(--x,0px),0,0) rotate(0deg);opacity:0;}
+      10%{opacity:.9;}
+      100%{transform: translate3d(var(--x,0px),-120vh,0) rotate(360deg);opacity:0;}
+    }
   </style>
 </head>
 
 <body>
- 
+  <!-- ✅ MUST be outside the card -->
+  
 
   <div class="wedding-card">
     <div class="image-section">
@@ -167,25 +159,23 @@
     <div id="weddingMessage" class="message-box"></div>
 
     <div class="button-panel">
-    
       <button class="style-btn" data-style="christian">🌸 Christian blessing</button>
-      <button class="style-btn" data-style="khmer"> Khmer version</button>
+      <button class="style-btn" data-style="khmer">Khmer version</button>
       <button class="style-btn" data-style="payment">💳 Payment</button>
     </div>
 
-    <footer>⸻    © 2026 Made by Samon. Thank you for your support.  
-  Contact: 0966988842 | ⸻</footer>
-   <div class="flowers" aria-hidden="true"></div>
+    <footer>⸻ © 2026 Made by Samon. Thank you for your support. Contact: 0966988842 ⸻</footer>
+    <div class="flowers" aria-hidden="true"></div>
   </div>
 
   <script>
-  (function () {
-    const IMG_HTML = `<div class="image-section" style="margin-bottom:14px;">
-      <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
-    </div>`;
+    (function () {
+      const IMG_HTML = `<div class="image-section" style="margin-bottom:14px;">
+        <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
+      </div>`;
 
-    const messages = {
-      christian: `${IMG_HTML}
+      const messages = {
+        christian: `${IMG_HTML}
 🌸 May you be blessed by the Lord on this joyous day.<br>
 May your marriage be a reflection of Christ's love for the church –<br>
 selfless, enduring, and pure.<br>
@@ -195,7 +185,7 @@ As you walk in faith together, may your love for each other<br>
 grow deeper with every passing day.<br><br>
 🙏 Mr Phalleab & Dr Kim 🙏`,
 
-      khmer: `${IMG_HTML}
+        khmer: `${IMG_HTML}
 សូមអបអរសាទរក្នុងថ្ងៃមង្គលការរបស់លោកអ្នក!<br>
 សូមឱ្យអាពាហ៍ពិពាហ៍របស់លោកអ្នកពោរពេញទៅដោយក្តីស្រឡាញ់<br>
 សេចក្តីរីករាយ និងការយោគយល់គ្នា។<br><br>
@@ -204,64 +194,60 @@ grow deeper with every passing day.<br><br>
 ពោរពេញដោយសុភមង្គល និងជោគជ័យ។<br><br>
 💖 សូមរីករាយថ្ងៃរៀបការ! 💖`,
 
-      payment: `${IMG_HTML}
+        payment: `${IMG_HTML}
 💳 Payment Information<br><br>
 ABA: <b>000 000 000</b><br>
 Name: <b>Your Name</b><br><br>
 Wing: <b>00000000</b><br>
 Name: <b>Your Name</b><br><br>
 🙏 Thank you for your support! 🙏`
-    };
-        // 🌸 Floating flowers up
-    const flowersWrap = document.querySelector(".flowers");
-    const FLOWERS = ["🌸","🌷","🌹","💐","🌺","🌼"];
+      };
 
-    function spawnFlower() {
-      if (!flowersWrap) return;
+      // 🌸 Floating flowers up
+      const flowersWrap = document.querySelector(".flowers");
+      const FLOWERS = ["🌸","🌷","🌹","💐","🌺","🌼"];
 
-      const f = document.createElement("span");
-      f.className = "flower";
-      f.textContent = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
+      function spawnFlower() {
+        if (!flowersWrap) return;
 
-      const left = Math.random() * 100;          // %
-      const size = 14 + Math.random() * 18;      // px
-      const dur  = 6 + Math.random() * 7;        // seconds
-      const drift = (Math.random() * 2 - 1) * 80; // px
+        const f = document.createElement("span");
+        f.className = "flower";
+        f.textContent = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
 
-      f.style.left = left + "%";
-      f.style.fontSize = size + "px";
-      f.style.animationDuration = dur + "s";
-      f.style.setProperty("--x", drift + "px");
+        const left = Math.random() * 100;           // %
+        const size = 14 + Math.random() * 18;       // px
+        const dur  = 6 + Math.random() * 7;         // seconds
+        const drift = (Math.random() * 2 - 1) * 80; // px
 
-      flowersWrap.appendChild(f);
+        f.style.left = left + "%";
+        f.style.fontSize = size + "px";
+        f.style.animationDuration = dur + "s";
+        f.style.setProperty("--x", drift + "px");
 
-      // remove after animation
-      setTimeout(() => f.remove(), (dur + 0.2) * 1000);
-    }
+        flowersWrap.appendChild(f);
+        setTimeout(() => f.remove(), (dur + 0.2) * 1000);
+      }
 
-    // spawn continuously
-    setInterval(spawnFlower, 350);
-    // initial burst
-    for (let i = 0; i < 12; i++) setTimeout(spawnFlower, i * 120);
+      setInterval(spawnFlower, 350);
+      for (let i = 0; i < 12; i++) setTimeout(spawnFlower, i * 120);
 
-    const messageDiv = document.getElementById("weddingMessage");
+      const messageDiv = document.getElementById("weddingMessage");
 
-    function displayMessage(styleKey) {
-      if (styleKey === "khmer") messageDiv.classList.add("khmer-font-fix");
-      else messageDiv.classList.remove("khmer-font-fix");
+      function displayMessage(styleKey) {
+        if (styleKey === "khmer") messageDiv.classList.add("khmer-font-fix");
+        else messageDiv.classList.remove("khmer-font-fix");
 
-      messageDiv.innerHTML = messages[styleKey] || messages.christian;
-    }
+        messageDiv.innerHTML = messages[styleKey] || messages.christian;
+      }
 
-    // default message
-    displayMessage("christian");
+      displayMessage("christian");
 
-    document.querySelectorAll(".style-btn").forEach((btn) => {
-      btn.addEventListener("click", function () {
-        displayMessage(this.dataset.style);
+      document.querySelectorAll(".style-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          displayMessage(this.dataset.style);
+        });
       });
-    });
-  })();
-</script>
+    })();
+  </script>
 </body>
 </html>
