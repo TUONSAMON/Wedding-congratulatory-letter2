@@ -104,13 +104,10 @@
 
 <body>
   <div class="wedding-card">
-    <!-- 🌸 image section -->
     <div class="image-section">
-      <!-- IMPORTANT: put pic.jpg in the SAME folder as index.html -->
       <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
     </div>
 
-    <!-- 🎵 embedded song (YouTube) -->
     <div class="video-wrapper">
       <div class="video-container">
         <iframe
@@ -128,15 +125,10 @@
 
     <h1><span>💍✨</span> Wedding Wishes <span>✨💍</span></h1>
 
-    <!-- dynamic message area -->
     <div id="weddingMessage" class="message-box"></div>
 
-    <!-- style buttons -->
     <div class="button-panel">
-      <button class="style-btn" data-style="original">🌸 Original</button>
-      <button class="style-btn" data-style="romantic">💌 Romantic</button>
-      <button class="style-btn" data-style="short">😄 Short & simple</button>
-      <button class="style-btn" data-style="formal">👑 Formal</button>
+    
       <button class="style-btn" data-style="christian">🌸 Christian blessing</button>
       <button class="style-btn" data-style="khmer">🇰🇭 Khmer version</button>
     </div>
@@ -146,37 +138,17 @@
 
   <script>
     (function () {
+      // ✅ Reuse your same image path inside messages
+      const IMG_HTML = `<div class="image-section" style="margin-bottom:14px;">
+        <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
+      </div>`;
+
       const messages = {
-        original: `💍✨ Wedding Congratulations ✨💍<br><br>
-Congratulations on your special day!<br>
-May your marriage be filled with endless love, joy, and understanding.<br><br>
-May you always support each other, laugh together, grow together,<br>
-and build a beautiful life full of happiness and success.<br><br>
-Wishing you a lifetime of sweet memories, strong partnership,<br>
-and a love that grows deeper every single day.<br><br>
-💖 Happy Wedding Day! 💖`,
 
-        romantic: `💌 My love, today my heart is so full it might burst.<br>
-Watching you say "I do" was the most beautiful moment of my life.<br>
-You are my dream come true, my forever home.<br>
-I promise to spend every day cherishing you,<br>
-holding your hand through every storm,<br>
-and dancing with you under every star.<br>
-My love for you is a journey that starts today and never ends.<br><br>
-✨ Forever yours, forever us. ✨`,
 
-        short: `😄 Congrats you two! So happy for you!<br>
-Wishing you a lifetime of love, laughter, and happily ever after.<br>
-Cheers to the new Mr. & Mrs.! 🥂<br><br>
-❤️ Enjoy every moment! ❤️`,
-
-        formal: `👑 Please accept our heartfelt congratulations on your recent nuptials.<br>
-We wish you a lifetime of shared happiness and mutual success.<br>
-May the commitment you have made today be the foundation<br>
-for a future filled with prosperity and enduring love.<br><br>
-With warmest regards and every good wish for your future together.`,
-
-        christian: `🌸 May you be blessed by the Lord on this joyous day.<br>
+        // ✅ FIXED: christian must be a string
+        christian: `${IMG_HTML}
+🌸 May you be blessed by the Lord on this joyous day.<br>
 May your marriage be a reflection of Christ's love for the church –<br>
 selfless, enduring, and pure.<br>
 May He guide you, strengthen your bond, and fill your home<br>
@@ -185,7 +157,9 @@ As you walk in faith together, may your love for each other<br>
 grow deeper with every passing day.<br><br>
 🙏 In Jesus' name, Amen. 🙏`,
 
-        khmer: `🇰🇭 សូមអបអរសាទរក្នុងថ្ងៃមង្គលការរបស់លោកអ្នក!<br>
+        // ✅ Khmer (optionally include image too)
+        khmer: `${IMG_HTML}
+🇰🇭 សូមអបអរសាទរក្នុងថ្ងៃមង្គលការរបស់លោកអ្នក!<br>
 សូមឱ្យអាពាហ៍ពិពាហ៍របស់លោកអ្នកពោរពេញទៅដោយក្តីស្រឡាញ់<br>
 សេចក្តីរីករាយ និងការយោគយល់គ្នា។<br><br>
 សូមឱ្យលោកអ្នកតែងតែគាំទ្រគ្នា សើចសប្បាយជាមួយគ្នា<br>
