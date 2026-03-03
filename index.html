@@ -131,23 +131,20 @@
     
       <button class="style-btn" data-style="christian">🌸 Christian blessing</button>
       <button class="style-btn" data-style="khmer">🇰🇭 Khmer version</button>
+      <button class="style-btn" data-style="payment">💳 Payment</button>
     </div>
 
     <footer>⸻ click a style, change the blessing ⸻</footer>
   </div>
 
   <script>
-    (function () {
-      // ✅ Reuse your same image path inside messages
-      const IMG_HTML = `<div class="image-section" style="margin-bottom:14px;">
-        <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
-      </div>`;
+  (function () {
+    const IMG_HTML = `<div class="image-section" style="margin-bottom:14px;">
+      <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
+    </div>`;
 
-      const messages = {
-
-
-        // ✅ FIXED: christian must be a string
-        christian: `${IMG_HTML}
+    const messages = {
+      christian: `${IMG_HTML}
 🌸 May you be blessed by the Lord on this joyous day.<br>
 May your marriage be a reflection of Christ's love for the church –<br>
 selfless, enduring, and pure.<br>
@@ -157,34 +154,42 @@ As you walk in faith together, may your love for each other<br>
 grow deeper with every passing day.<br><br>
 🙏 In Jesus' name, Amen. 🙏`,
 
-        // ✅ Khmer (optionally include image too)
-        khmer: `${IMG_HTML}
+      khmer: `${IMG_HTML}
 🇰🇭 សូមអបអរសាទរក្នុងថ្ងៃមង្គលការរបស់លោកអ្នក!<br>
 សូមឱ្យអាពាហ៍ពិពាហ៍របស់លោកអ្នកពោរពេញទៅដោយក្តីស្រឡាញ់<br>
 សេចក្តីរីករាយ និងការយោគយល់គ្នា។<br><br>
 សូមឱ្យលោកអ្នកតែងតែគាំទ្រគ្នា សើចសប្បាយជាមួយគ្នា<br>
 រីកចម្រើនជាមួយគ្នា និងកសាងជីវិតដ៏ស្រស់ស្អាត<br>
 ពោរពេញដោយសុភមង្គល និងជោគជ័យ។<br><br>
-💖 សូមរីករាយថ្ងៃរៀបការ! 💖`
-      };
+💖 សូមរីករាយថ្ងៃរៀបការ! 💖`,
 
-      const messageDiv = document.getElementById("weddingMessage");
+      payment: `${IMG_HTML}
+💳 Payment Information<br><br>
+ABA: <b>000 000 000</b><br>
+Name: <b>Your Name</b><br><br>
+Wing: <b>00000000</b><br>
+Name: <b>Your Name</b><br><br>
+🙏 Thank you for your support! 🙏`
+    };
 
-      function displayMessage(styleKey) {
-        if (styleKey === "khmer") messageDiv.classList.add("khmer-font-fix");
-        else messageDiv.classList.remove("khmer-font-fix");
+    const messageDiv = document.getElementById("weddingMessage");
 
-        messageDiv.innerHTML = messages[styleKey] || messages.original;
-      }
+    function displayMessage(styleKey) {
+      if (styleKey === "khmer") messageDiv.classList.add("khmer-font-fix");
+      else messageDiv.classList.remove("khmer-font-fix");
 
-      displayMessage("original");
+      messageDiv.innerHTML = messages[styleKey] || messages.christian;
+    }
 
-      document.querySelectorAll(".style-btn").forEach((btn) => {
-        btn.addEventListener("click", function () {
-          displayMessage(this.dataset.style);
-        });
+    // default message
+    displayMessage("christian");
+
+    document.querySelectorAll(".style-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        displayMessage(this.dataset.style);
       });
-    })();
-  </script>
+    });
+  })();
+</script>
 </body>
 </html>
