@@ -99,10 +99,49 @@
       .style-btn{padding:.7rem 1.2rem;font-size:1rem;}
       .wedding-img{max-height:350px;}
     }
+
+    /* 🌸 Floating Flowers */
+.flowers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.flower {
+  position: absolute;
+  bottom: -60px;
+  font-size: 22px;
+  opacity: 0.85;
+  animation: floatUp linear forwards;
+  filter: drop-shadow(0 8px 10px rgba(160, 80, 100, 0.25));
+  will-change: transform;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translate3d(var(--x, 0px), 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: .9; }
+  100% {
+    transform: translate3d(var(--x, 0px), -120vh, 0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* keep your card above flowers */
+.wedding-card {
+  position: relative;
+  z-index: 2;
+}
   </style>
 </head>
 
 <body>
+ 
+
   <div class="wedding-card">
     <div class="image-section">
       <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
@@ -130,11 +169,13 @@
     <div class="button-panel">
     
       <button class="style-btn" data-style="christian">🌸 Christian blessing</button>
-      <button class="style-btn" data-style="khmer">🇰🇭 Khmer version</button>
+      <button class="style-btn" data-style="khmer"> Khmer version</button>
       <button class="style-btn" data-style="payment">💳 Payment</button>
     </div>
 
-    <footer>⸻ Thank you ⸻</footer>
+    <footer>⸻    © 2026 Made by Samon. Thank you for your support.  
+  Contact: 0966988842 | ⸻</footer>
+   <div class="flowers" aria-hidden="true"></div>
   </div>
 
   <script>
@@ -155,7 +196,7 @@ grow deeper with every passing day.<br><br>
 🙏 Mr Phalleab & Dr Kim 🙏`,
 
       khmer: `${IMG_HTML}
-🇰🇭 សូមអបអរសាទរក្នុងថ្ងៃមង្គលការរបស់លោកអ្នក!<br>
+សូមអបអរសាទរក្នុងថ្ងៃមង្គលការរបស់លោកអ្នក!<br>
 សូមឱ្យអាពាហ៍ពិពាហ៍របស់លោកអ្នកពោរពេញទៅដោយក្តីស្រឡាញ់<br>
 សេចក្តីរីករាយ និងការយោគយល់គ្នា។<br><br>
 សូមឱ្យលោកអ្នកតែងតែគាំទ្រគ្នា សើចសប្បាយជាមួយគ្នា<br>
@@ -171,6 +212,37 @@ Wing: <b>00000000</b><br>
 Name: <b>Your Name</b><br><br>
 🙏 Thank you for your support! 🙏`
     };
+        // 🌸 Floating flowers up
+    const flowersWrap = document.querySelector(".flowers");
+    const FLOWERS = ["🌸","🌷","🌹","💐","🌺","🌼"];
+
+    function spawnFlower() {
+      if (!flowersWrap) return;
+
+      const f = document.createElement("span");
+      f.className = "flower";
+      f.textContent = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
+
+      const left = Math.random() * 100;          // %
+      const size = 14 + Math.random() * 18;      // px
+      const dur  = 6 + Math.random() * 7;        // seconds
+      const drift = (Math.random() * 2 - 1) * 80; // px
+
+      f.style.left = left + "%";
+      f.style.fontSize = size + "px";
+      f.style.animationDuration = dur + "s";
+      f.style.setProperty("--x", drift + "px");
+
+      flowersWrap.appendChild(f);
+
+      // remove after animation
+      setTimeout(() => f.remove(), (dur + 0.2) * 1000);
+    }
+
+    // spawn continuously
+    setInterval(spawnFlower, 350);
+    // initial burst
+    for (let i = 0; i < 12; i++) setTimeout(spawnFlower, i * 120);
 
     const messageDiv = document.getElementById("weddingMessage");
 
