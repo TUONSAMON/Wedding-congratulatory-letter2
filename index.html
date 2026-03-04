@@ -1,253 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>✨ Wedding wishes · with song & image ✨</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,'Helvetica Neue',system-ui,sans-serif;}
-    body{
-      min-height:100vh;
-      background:linear-gradient(145deg,#fce4ec 0%,#ffe0f0 40%,#fff3e6 100%);
-      display:flex;align-items:center;justify-content:center;
-      padding:1.5rem;
-    }
-    .wedding-card{
-      max-width:900px;width:100%;
-      background:rgba(255,255,255,.8);
-      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-      border-radius:48px 24px 48px 24px;
-      box-shadow:0 25px 45px -10px rgba(210,130,150,.4),
-                 0 0 0 2px #fff9fb inset,
-                 0 0 0 4px rgba(255,220,240,.6);
-      padding:2rem 2rem 2.5rem;
-
-      /* keep card above flowers */
-      position: relative;
-      z-index: 2;
-    }
-    .image-section{text-align:center;margin-bottom:1.2rem;}
-    .wedding-img{
-      max-width:100%;
-      height:auto;
-      border-radius:30px;
-      box-shadow:0 15px 25px -8px rgba(180,100,120,.5);
-      border:4px solid #fff;
-      object-fit:cover;
-      max-height:260px;
-      width:auto;
-    }
-    h1{
-      text-align:center;
-      font-size:2.4rem;
-      letter-spacing:2px;
-      color:#b3446c;
-      text-shadow:3px 3px 0 #ffd9e6;
-      margin:.8rem 0 .5rem;
-      display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
-    }
-    h1 span{font-size:2.8rem;line-height:1;}
-    .message-box{
-      background:#ffffffdd;
-      border-radius:32px 16px 32px 16px;
-      padding:2rem 2.2rem;
-      margin:1.5rem 0 2rem;
-      border:2px dashed #ffb3c6;
-      box-shadow:0 8px 0 #bb7a8e;
-      font-size:1.3rem;
-      line-height:1.6;
-      color:#2d1f2b;
-      text-align:center;
-      word-wrap:break-word;
-    }
-    .video-wrapper{
-      margin:1.2rem 0 1.2rem;
-      border-radius:30px;
-      overflow:hidden;
-      box-shadow:0 20px 30px -5px rgba(150,80,100,.4);
-      border:4px solid #fff;
-      background:#ffe7f0;
-    }
-    .video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;}
-    .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
-    .song-caption{
-      text-align:center;
-      font-size:1rem;
-      padding:.6rem .8rem .9rem;
-      color:#a54e6b;
-      font-style:italic;
-      font-weight:500;
-      letter-spacing:.5px;
-      background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(255,255,255,.15));
-    }
-    .button-panel{
-      display:flex;flex-wrap:wrap;justify-content:center;
-      gap:12px 10px;margin:1.6rem 0 .5rem;
-    }
-    .style-btn{
-      background:#fff0f5;border:3px solid #fff;outline:none;
-      padding:.9rem 1.5rem;border-radius:60px;
-      font-size:1.1rem;font-weight:600;color:#7f3e4f;
-      box-shadow:0 5px 0 #dba1b4,0 8px 14px rgba(170,100,120,.2);
-      cursor:pointer;transition:.1s linear;
-      display:inline-flex;align-items:center;gap:6px;line-height:1;
-    }
-    .style-btn:hover{transform:translateY(-3px);box-shadow:0 8px 0 #dba1b4,0 12px 20px rgba(170,100,120,.25);background:#ffe4ed;}
-    .style-btn:active{transform:translateY(5px);box-shadow:0 2px 0 #b26b82;}
-    .khmer-font-fix{font-family:"Leelawadee UI","Khmer OS","MoolBoran","Segoe UI",sans-serif;}
-    footer{text-align:center;margin-top:2rem;color:#ad6d82;font-weight:400;font-size:1rem;opacity:.85;}
-
-    @media (max-width:480px){
-      .wedding-card{padding:1.2rem 1rem;}
-      h1{font-size:2rem;}
-      .message-box{font-size:1.1rem;padding:1.5rem;}
-      .style-btn{padding:.7rem 1.2rem;font-size:1rem;}
-      .wedding-img{max-height:350px;}
-    }
-
-    /* 🌸 Floating Flowers */
-    .flowers{
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1; /* behind card (card is 2) */
-    }
-    .flower{
-      position:absolute;
-      bottom:-60px;
-      font-size:22px;
-      opacity:.85;
-      animation: floatUp linear forwards;
-      filter: drop-shadow(0 8px 10px rgba(160,80,100,.25));
-      will-change: transform;
-    }
-    @keyframes floatUp{
-      0%{transform: translate3d(var(--x,0px),0,0) rotate(0deg);opacity:0;}
-      10%{opacity:.9;}
-      100%{transform: translate3d(var(--x,0px),-120vh,0) rotate(360deg);opacity:0;}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation (English & Khmer)</title>
+    <!-- Include Khmer font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Noto+Sans+Khmer:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Flying Flowers and Hearts Animation */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: float linear infinite;
+            color: #b76e79;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+        .floating-element:nth-child(1) { animation-duration: 15s; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { animation-duration: 18s; left: 30%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { animation-duration: 14s; left: 50%; animation-delay: 1s; }
+        .floating-element:nth-child(4) { animation-duration: 20s; left: 70%; animation-delay: 3s; }
+        .floating-element:nth-child(5) { animation-duration: 16s; left: 90%; animation-delay: 0.5s; }
+        .floating-element:nth-child(6) { animation-duration: 22s; left: 20%; animation-delay: 4s; }
+        .floating-element:nth-child(7) { animation-duration: 19s; left: 40%; animation-delay: 2.5s; }
+        .floating-element:nth-child(8) { animation-duration: 17s; left: 60%; animation-delay: 1.5s; }
+        .floating-element:nth-child(9) { animation-duration: 21s; left: 80%; animation-delay: 3.5s; }
+        .floating-element:nth-child(10) { animation-duration: 15s; left: 95%; animation-delay: 0.2s; }
+        .floating-element:nth-child(11) { animation-duration: 18s; left: 15%; animation-delay: 5s; }
+        .floating-element:nth-child(12) { animation-duration: 23s; left: 45%; animation-delay: 2.2s; }
+        .floating-element:nth-child(13) { animation-duration: 16s; left: 75%; animation-delay: 4.2s; }
+        .floating-element:nth-child(14) { animation-duration: 20s; left: 85%; animation-delay: 1.2s; }
+        .floating-element:nth-child(15) { animation-duration: 17s; left: 55%; animation-delay: 3.8s; }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.2;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        body {
+            font-family: 'Georgia', 'Noto Sans Khmer', serif;
+            background-color: #fef9f1;
+            color: #4a2e2e;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .invitation {
+            max-width: 600px;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #f0d9c0;
+            margin: 20px;
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(2px);
+        }
+        .header {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #b76e79;
+            font-family: 'Brush Script MT', cursive;
+        }
+        .khmer-header {
+            font-size: 1.8rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            color: #b76e79;
+            margin-bottom: 1rem;
+        }
+        .names {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0 0.2rem;
+            letter-spacing: 2px;
+        }
+        .khmer-names {
+            font-size: 1.5rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            margin-bottom: 1rem;
+            color: #4a2e2e;
+        }
+        .date {
+            font-size: 1.5rem;
+            margin: 1rem 0 0.2rem;
+            color: #8b5a2b;
+        }
+        .khmer-date {
+            font-size: 1.2rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            margin-bottom: 1rem;
+            color: #8b5a2b;
+        }
+        .details {
+            margin: 1.5rem 0;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        .khmer-details {
+            font-size: 1rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            margin: 0.5rem 0 1.5rem;
+            color: #4a2e2e;
+        }
+        .rsvp {
+            margin-top: 2rem;
+            font-size: 1rem;
+        }
+        .rsvp a {
+            background-color: #b76e79;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 30px;
+            display: inline-block;
+            transition: background-color 0.3s;
+            line-height: 1.4;
+        }
+        .rsvp a:hover {
+            background-color: #9e5a64;
+            transform: scale(1.05);
+        }
+        .rsvp-button-text {
+            display: block;
+            font-size: 1.1rem;
+        }
+        .rsvp-button-khmer {
+            display: block;
+            font-size: 0.9rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            opacity: 0.9;
+        }
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        .khmer-footer {
+            font-size: 0.8rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            color: #aaa;
+        }
+        .couple-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .qr-code img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(183, 110, 121, 0.3);
+        }
+        .qr-note {
+            font-size: 0.9rem;
+            color: #b76e79;
+            margin-top: 0.5rem;
+        }
+        .khmer-qr-note {
+            font-size: 0.8rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            color: #b76e79;
+        }
+        .song-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #fef3e9;
+            border-radius: 12px;
+        }
+        .song-title {
+            font-size: 1.2rem;
+            color: #b76e79;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        .khmer-song-title {
+            font-size: 1rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            color: #b76e79;
+            margin-bottom: 0.5rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+        .wishes-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #fff5f0;
+            border-radius: 12px;
+            border: 1px solid #fad5c0;
+        }
+        .wishes-title {
+            font-size: 1.5rem;
+            color: #b76e79;
+            margin-bottom: 1rem;
+            font-family: 'Brush Script MT', cursive;
+        }
+        .khmer-wishes-title {
+            font-size: 1.2rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            color: #b76e79;
+            margin-bottom: 1rem;
+        }
+        .wishes-message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .khmer-wishes-message {
+            font-size: 1rem;
+            font-family: 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .wishes-groom {
+            color: #2c5f2d;
+            font-weight: bold;
+        }
+        .wishes-bride {
+            color: #b76e79;
+            font-weight: bold;
+        }
+        hr {
+            border: 0;
+            border-top: 1px dashed #f0d9c0;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
-
 <body>
-  <!-- ✅ MUST be outside the card -->
-  
-
-  <div class="wedding-card">
-    <div class="image-section">
-      <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
+    <!-- Flying Flowers and Hearts -->
+    <div class="floating-elements">
+        <div class="floating-element">🌸</div>
+        <div class="floating-element">💖</div>
+        <div class="floating-element">🌺</div>
+        <div class="floating-element">💕</div>
+        <div class="floating-element">🌷</div>
+        <div class="floating-element">💗</div>
+        <div class="floating-element">🌼</div>
+        <div class="floating-element">💓</div>
+        <div class="floating-element">🌹</div>
+        <div class="floating-element">💘</div>
+        <div class="floating-element">🌸</div>
+        <div class="floating-element">💖</div>
+        <div class="floating-element">🌺</div>
+        <div class="floating-element">💕</div>
+        <div class="floating-element">🌷</div>
     </div>
 
-    <div class="video-wrapper">
-      <div class="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/UBj9OmRnKh4?autoplay=0&rel=0"
-          title="All3rgy & Jenna Norodom - សូរិយា (Official Music Video)"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="song-caption">
-        🎶 All3rgy & Jenna Norodom – សូរិយា (official video) · wedding song
-      </div>
+    <div class="invitation">
+        <!-- Replace 'image.png' with your couple photo -->
+        <img src="image.png" alt="Dr.Phalleeap and Dr.Kim" class="couple-image">
+
+        <!-- English header -->
+        <div class="header">You're Invited!</div>
+        <!-- Khmer header -->
+        <div class="khmer-header">សូមអញ្ជើញ!</div>
+
+        <!-- English names -->
+        <div class="names">Dr. Phalleeap & Dr. Kim</div>
+        <!-- Khmer names -->
+        <div class="khmer-names">ផល្លីប និង គីម</div>
+
+        <!-- Song Section (bilingual) -->
+        <div class="song-section">
+            <div class="song-title">🎵 Play your wedding song 🎵</div>
+            <div class="khmer-song-title">🎵 បើកចម្រៀងអាពាហ៍ពិពាហ៍របស់អ្នក 🎵</div>
+            <p style="font-size:0.9rem; margin-bottom:0.5rem;">Dr. Phalleeap & Dr. Kim - ផល្លីប និង គីម</p>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/UBj9OmRnKh4?autoplay=0&modestbranding=1&rel=0" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <!-- English header for gift envelope -->
+        <div class="header">Please come and see your wedding gift envelope!</div>
+        <!-- Khmer header for gift envelope -->
+        <div class="khmer-header">សូមអញ្ជើញមកមើលស្រោមសំបុត្រចំណងដៃអាពាហ៍ពិពាហ៍របស់អ្នក</div>
+
+        <!-- QR Code Section -->
+        <div class="qr-code">
+            <img src="image1.png" alt="QR Code">
+        </div>
+
+        <!-- Wedding Wishes Section (bilingual) -->
+        <div class="wishes-section">
+            <!-- English wishes title -->
+            <div class="wishes-title">Wedding Wishes</div>
+            <!-- Khmer wishes title -->
+            <div class="khmer-wishes-title">ពាក្យជូនពរ</div>
+            
+            <!-- English wishes -->
+            <div class="wishes-message">
+                <span class="wishes-groom">To the Groom:</span> May your life together be filled with laughter, understanding, and endless love.<br>
+                <span class="wishes-bride">To the Bride:</span> May your heart always be as beautiful as today, and your marriage bloom forever.
+            </div>
+            
+            <!-- Khmer wishes -->
+            <div class="khmer-wishes-message">
+                <span class="wishes-groom">ជូនពរកូនកំលោះ៖</span> សូមឲ្យជីវិតរបស់អ្នកទាំងពីរពោរពេញទៅដោយសំណើច ការយោគយល់គ្នា និងសេចក្តីស្រឡាញ់មិនចេះចប់។<br>
+                <span class="wishes-bride">ជូនពរកូនក្រមុំ៖</span> សូមឲ្យបេះដូងរបស់អ្នកតែងតែស្រស់ស្អាតដូចថ្ងៃនេះ ហើយអាពាហ៍ពិពាហ៍របស់អ្នករីកចម្រើនជានិច្ច។
+            </div>
+            
+            <!-- Additional universal wish in both languages -->
+            <hr>
+            <div class="wishes-message" style="font-style: italic;">
+                Congratulations and best wishes for a lifetime of happiness! 💕
+            </div>
+            <div class="khmer-wishes-message" style="font-style: italic;">
+                សូមអបអរសាទរ និងជូនពរឲ្យមានសុភមង្គលពេញមួយជីវិត! 💕
+            </div>
+        </div>
+
+        <!-- Bilingual Scroll Up Button -->
+        <div class="rsvp">
+            <a href="#">
+                <span class="rsvp-button-text">Look up</span>
+                <span class="rsvp-button-khmer">រំកិលទៅលើ</span>
+            </a>
+        </div>
+
+        <!-- Footer (bilingual) -->
+        <div class="footer">We can't wait to celebrate with you! 💖</div>
+        <div class="khmer-footer">យើងខ្ញុំពុំអាចរង់ចាំដើម្បីអបអរជាមួយអ្នកទេ! 💖</div>
     </div>
-
-    <h1><span>💍✨</span> Wedding Wishes <span>✨💍</span></h1>
-
-    <div id="weddingMessage" class="message-box"></div>
-
-    <div class="button-panel">
-      <button class="style-btn" data-style="christian">🌸 Christian blessing</button>
-      <button class="style-btn" data-style="khmer">Khmer version</button>
-      <button class="style-btn" data-style="payment">💳 Payment</button>
-    </div>
-
-    <footer>⸻ © 2026 Made by Samon. Thank you for your support. Contact: 0966988842 ⸻</footer>
-    <div class="flowers" aria-hidden="true"></div>
-  </div>
-
-  <script>
-    (function () {
-      const IMG_HTML = `<div class="image-section" style="margin-bottom:14px;">
-        <img class="wedding-img" src="./image.png" alt="Wedding photo" loading="lazy" />
-      </div>`;
-
-      const messages = {
-        christian: `${IMG_HTML}
-🌸 May you be blessed by the Lord on this joyous day.<br>
-May your marriage be a reflection of Christ's love for the church –<br>
-selfless, enduring, and pure.<br>
-May He guide you, strengthen your bond, and fill your home<br>
-with peace and grace.<br>
-As you walk in faith together, may your love for each other<br>
-grow deeper with every passing day.<br><br>
-🙏 Mr Phalleab & Dr Kim 🙏`,
-
-        khmer: `${IMG_HTML}
-សូមអបអរសាទរក្នុងថ្ងៃមង្គលការរបស់លោកអ្នក!<br>
-សូមឱ្យអាពាហ៍ពិពាហ៍របស់លោកអ្នកពោរពេញទៅដោយក្តីស្រឡាញ់<br>
-សេចក្តីរីករាយ និងការយោគយល់គ្នា។<br><br>
-សូមឱ្យលោកអ្នកតែងតែគាំទ្រគ្នា សើចសប្បាយជាមួយគ្នា<br>
-រីកចម្រើនជាមួយគ្នា និងកសាងជីវិតដ៏ស្រស់ស្អាត<br>
-ពោរពេញដោយសុភមង្គល និងជោគជ័យ។<br><br>
-💖 សូមរីករាយថ្ងៃរៀបការ! 💖`,
-
-        payment: `${IMG_HTML}
-💳 Payment Information<br><br>
-ABA: <b>000 000 000</b><br>
-Name: <b>Your Name</b><br><br>
-Wing: <b>00000000</b><br>
-Name: <b>Your Name</b><br><br>
-🙏 Thank you for your support! 🙏`
-      };
-
-      // 🌸 Floating flowers up
-      const flowersWrap = document.querySelector(".flowers");
-      const FLOWERS = ["🌸","🌷","🌹","💐","🌺","🌼"];
-
-      function spawnFlower() {
-        if (!flowersWrap) return;
-
-        const f = document.createElement("span");
-        f.className = "flower";
-        f.textContent = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
-
-        const left = Math.random() * 100;           // %
-        const size = 14 + Math.random() * 18;       // px
-        const dur  = 6 + Math.random() * 7;         // seconds
-        const drift = (Math.random() * 2 - 1) * 80; // px
-
-        f.style.left = left + "%";
-        f.style.fontSize = size + "px";
-        f.style.animationDuration = dur + "s";
-        f.style.setProperty("--x", drift + "px");
-
-        flowersWrap.appendChild(f);
-        setTimeout(() => f.remove(), (dur + 0.2) * 1000);
-      }
-
-      setInterval(spawnFlower, 350);
-      for (let i = 0; i < 12; i++) setTimeout(spawnFlower, i * 120);
-
-      const messageDiv = document.getElementById("weddingMessage");
-
-      function displayMessage(styleKey) {
-        if (styleKey === "khmer") messageDiv.classList.add("khmer-font-fix");
-        else messageDiv.classList.remove("khmer-font-fix");
-
-        messageDiv.innerHTML = messages[styleKey] || messages.christian;
-      }
-
-      displayMessage("christian");
-
-      document.querySelectorAll(".style-btn").forEach((btn) => {
-        btn.addEventListener("click", function () {
-          displayMessage(this.dataset.style);
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
